@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Historical Timeline - Lima</title>
+    <style>
+        body { margin: 0; background: #121212; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .map-viewport { position: relative; width: 100vw; height: 100vh; background: #000; }
+        .layer { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background-size: contain; background-repeat: no-repeat; background-position: center; 
+            transition: opacity 0.3s ease-in-out; 
+        }
+        .controls { 
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); 
+            width: 70%; max-width: 500px; background: rgba(0,0,0,0.8); padding: 20px; 
+            border-radius: 50px; text-align: center; z-index: 100; border: 1px solid #444;
+            backdrop-filter: blur(10px);
+        }
+        input[type=range] { width: 100%; cursor: pointer; accent-color: #007bff; margin-top: 10px; }
+        .label { color: white; font-weight: bold; font-size: 1.4rem; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+    <div class="map-viewport">
+        <div class="layer" style="background-image: url('1944_.jpg'); z-index: 1;"></div>
+        
+        <div id="layer-2001" class="layer" style="background-image: url('2001_.jpg'); z-index: 2; opacity: 0;"></div>
+        
+        <div id="layer-2025" class="layer" style="background-image: url('2025_.jpg'); z-index: 3; opacity: 0;"></div>
+    </div>
+
+    <div class="controls">
+        <div id="year-label" class="label">Year: 1944</div>
+        <input type="range" min="0" max="2" value="0" id="timeline-slider">
+    </div>
+
+    <script>
+        const slider = document.getElementById('timeline-slider');
+        const label = document.getElementById('year-label');
+        const l2001 = document.getElementById('layer-2001');
+        const l2025 = document.getElementById('layer-2025');
+
+        slider.oninput = function() {
+            const val = parseInt(this.value);
+            if (val === 0) {
+                label.innerText = "Year: 1944";
+                l2001.style.opacity = 0; 
+                l2025.style.opacity = 0;
+            } else if (val === 1) {
+                label.innerText = "Year: 2001";
+                l2001.style.opacity = 1; 
+                l2025.style.opacity = 0;
+            } else if (val === 2) {
+                label.innerText = "Year: 2025";
+                l2001.style.opacity = 1; 
+                l2025.style.opacity = 1;
+            }
+        };
+    </script>
+</body>
+</html>
